@@ -1,22 +1,35 @@
-import {Produit} from '../shared/produit';
+import { Produit } from '../shared/produit';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
-export class ProduitMockService{
+export class ProduitMockService {
 
-    private PRODUITS:Produit[]=[];
-    constructor(){
-        let p1:Produit=new Produit('Livre',50,20);
-        let p2:Produit=new Produit('Cahier',200,5.25);
-        let p3:Produit=new Produit('Stylo',500,10);
-        this.PRODUITS.push(p1);
-        this.PRODUITS.push(p2);
-        this.PRODUITS.push(p3);
+    private produits: Produit[] = [];
+    constructor() {
+        this.produits=[
+            {
+                reference: "ref1",
+                quantite: 10,
+                prixunitaire: 100.0
+            },
+            {
+                reference: "ref2",
+                quantite: 20,
+                prixunitaire: 105.0
+            },
+            {
+                reference: "ref3",
+                quantite: 40,
+                prixunitaire: 155.0
+            }
+        ]
     }
 
-    public getProduits():Produit[]{
-        return this.PRODUITS;
+    getProduits():Produit[]{
+        return this.produits
 
     }
-
+        
 }

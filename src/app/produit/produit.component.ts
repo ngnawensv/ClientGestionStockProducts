@@ -1,21 +1,38 @@
-import {Component, OnInit} from '@angular/core';
-import { ProduitMockService } from './produit-mock-service';
+import { Component, OnInit } from '@angular/core';
 import { Produit } from '../shared/produit';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ProduitServiceService } from './produit-service.service';
 @Component({
-    selector:'app-produit',
-    templateUrl:'./produit.component.html',
-    styleUrls:['./produit.component.css']
+    selector: 'app-produit',
+    templateUrl: './produit.component.html',
+    styleUrls: ['./produit.component.css']
 })
-export class ProduitComponent implements OnInit{
+export class ProduitComponent implements OnInit {
 
-    produits:Produit[];
-    constructor(private produitService: ProduitMockService){
+    produits: Produit[];
+
+    produitForm: FormGroup;
+
+    constructor(private produitService: ProduitServiceService, private formBluider: FormBuilder) {
+        this.produitForm = this.formBluider.group({
+            reference: ['', Validators.required],
+            quantite: '',
+            prixunitaire: ''
+        });
 
     }
 
-    ngOnInit(){
-    this.produits=this.produitService.getProduits();
-
+    ngOnInit() {
+        this.listeProduits();
     }
+
+    listeProduits() {
+        this.produitService.getProduits().subscribe(
+            data => {
+                this.produits=data;
+                console.log(data);
+            }
+        )   
+     }
 
 }

@@ -1,8 +1,73 @@
-<h3>Hello world for products</h3>
-<ul>
+<h3>Produits</h3>
+<!--<ul>
     <li *ngFor="let produit of produits">
         Ref:{{produit.ref}}, Quantité: {{produit.quantite}}, Prix Unitaire: {{produit.prixunitaire}}
 
     </li>
 
-</ul>
+</ul>-->
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-7">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Référence</th>
+                        <th>Quantité</th>
+                        <th>Prix unitaire</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let produit of produits">
+                        <td><img src="http://placehold.it/250x300" height="50"/></td>
+                        <td>{{produit.reference}}</td>
+                        <td>{{produit.quantite}}</td>
+                        <td>{{produit.prixunitaire}}</td>
+
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-5">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    Ajouter Produit
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="produitForm">
+                        <div class="form-group">
+                            <label>Référence</label>
+                            <input type="text" class="form-control" formControlName="reference" />
+                        </div>
+                        <div class="alert alert-danger"
+                            *ngIf="produitForm.controls['reference'].invalid && (produitForm.controls['reference'].touched || produitForm.controls['reference'].dirty )">
+                            Réference est obligatoire!
+                        </div>
+                        <div class="form-group">
+                            <label>Quantité</label>
+                            <input type="number" class="form-control" formControlName="quantite" />
+                        </div>
+                        <div class="form-group">
+                            <label>Prix Unitaire</label>
+                            <input type="number" class="form-control" formControlName="prixunitaire" />
+                        </div>
+                        <button class="btn btn-success"
+                            [disabled]="produitForm.prestine || produitForm.invalid"
+                            (onclick)="addProduit()">Ajouter</button>
+                    </form>
+                </div>
+                <div class="card-footer">
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
